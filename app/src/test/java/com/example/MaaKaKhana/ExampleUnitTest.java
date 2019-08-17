@@ -1,4 +1,4 @@
-package com.example.splashscreen;
+package com.example.MaaKaKhana;
 
 import org.junit.Test;
 

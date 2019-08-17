@@ -1,4 +1,4 @@
-package com.example.splashscreen;
+package com.example.MaaKaKhana;
 
 import androidx.appcompat.app.AppCompatActivity;
 

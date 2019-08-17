@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SplashScreen</string>
+    <string name="Registration_link"><u>Not Registered? Click Here</u>.</string>
 </resources>
