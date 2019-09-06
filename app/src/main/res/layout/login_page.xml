@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="register"
     tools:context=".Login_Page">
 
     <EditText
@@ -43,6 +42,8 @@
         android:layout_marginBottom="8dp"
         android:autoLink="all"
         android:clickable="true"
+        android:focusable="auto"
+        android:onClick="register"
         android:text="@string/Registration_link"
         android:textColor="#0E2FE2"
         android:textSize="16dp"

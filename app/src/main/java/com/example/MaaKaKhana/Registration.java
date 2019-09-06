@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -89,11 +90,16 @@ public class Registration extends AppCompatActivity {
 
                 else
                 {
+                    final ProgressDialog progressDialog = new ProgressDialog(Registration.this);
+                    progressDialog.setMessage("Please wait....");
+                    progressDialog.show();
+
                     firebaseAuth.createUserWithEmailAndPassword(email_id, password)
                             .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        progressDialog.dismiss();
                                         registration_details information = new registration_details(
                                                 first_name,
                                                 last_name,
@@ -107,11 +113,15 @@ public class Registration extends AppCompatActivity {
                                                 .setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                Toast.makeText(Registration.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+
+
+                                                Toast.makeText(Registration.this, "Registration Successful! Please Login now.", Toast.LENGTH_SHORT).show();
                                                 startActivity(new Intent(getApplicationContext(),Login_Page.class));
                                             }
                                         });
                                     } else {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(getApplicationContext(), "Sorry!! "+task.getException().getMessage(), Toast.LENGTH_LONG).show();
 
                                     }
 

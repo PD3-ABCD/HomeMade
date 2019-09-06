@@ -3,9 +3,11 @@ package com.example.MaaKaKhana;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,29 +39,52 @@ public class Login_Page extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Progress Dialog (Loading Dialog)
+
+
+
+
                 mAuth = FirebaseAuth.getInstance();
                 String email_id = text_email_id.getText().toString();
                 String password = text_password.getText().toString();
 
-                mAuth.signInWithEmailAndPassword(email_id, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Intent intent = new Intent(Login_Page.this, Home_Screen.class);
-                                    startActivity(intent);
-                                    FirebaseUser user = mAuth.getCurrentUser();
+                if(TextUtils.isEmpty(email_id))
+                {
+                    text_email_id.setError("Email Id cannot be blank");
+                }
+                else if(TextUtils.isEmpty(password))
+                {
+                    text_password.setError("Password cannot be blank");
+                }
+                else
+                {
+                    final ProgressDialog progressDialog=new ProgressDialog(Login_Page.this);
+                    progressDialog.setMessage("Please wait....");
+                    progressDialog.show();
+                    mAuth.signInWithEmailAndPassword(email_id, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
 
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(getApplicationContext(), "Authentication failed." + task.getException(),
-                                            Toast.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Intent intent = new Intent(Login_Page.this, Home_Screen.class);
+                                        startActivity(intent);
+                                        FirebaseUser user = mAuth.getCurrentUser();
+
+                                    } else {
+
+                                        progressDialog.dismiss();
+                                        // If sign in fails, display a message to the user.
+                                        Toast.makeText(getApplicationContext(), "Sorry!! " + task.getException().getMessage(),
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    // ...
                                 }
-
-                                // ...
-                            }
-                        });
+                            });
+                }
             }
 
 
