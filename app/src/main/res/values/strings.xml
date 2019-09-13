@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">SplashScreen</string>
     <string name="Registration_link"><u>Not Registered? Click Here</u>.</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps2">Map</string>
+    <string name="save">Save</string>
+    <string name="next">Next</string>
 </resources>

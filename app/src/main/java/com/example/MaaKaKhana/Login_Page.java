@@ -69,7 +69,7 @@ public class Login_Page extends AppCompatActivity {
 
                                         progressDialog.dismiss();
                                         // Sign in success, update UI with the signed-in user's information
-                                        Intent intent = new Intent(Login_Page.this, Home_Screen.class);
+                                        Intent intent = new Intent(Login_Page.this, MapsActivity.class);
                                         startActivity(intent);
                                         FirebaseUser user = mAuth.getCurrentUser();
 
@@ -77,7 +77,7 @@ public class Login_Page extends AppCompatActivity {
 
                                         progressDialog.dismiss();
                                         // If sign in fails, display a message to the user.
-                                        Toast.makeText(getApplicationContext(), "Sorry!! " + task.getException().getMessage(),
+                                        Toast.makeText(getApplicationContext(), "Sorry!! " + task.getException(),
                                                 Toast.LENGTH_SHORT).show();
                                     }
 
