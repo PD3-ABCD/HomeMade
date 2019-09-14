@@ -45,7 +45,7 @@ public class Registration extends AppCompatActivity {
         btn_register=(Button) findViewById(R.id.btnRegister);
 
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+      //  databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         firebaseAuth = FirebaseAuth.getInstance();
 
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +107,7 @@ public class Registration extends AppCompatActivity {
                                                 password,
                                                 contact_no
                                         );
-
+                                        //Log.d("Users","Checking code reach");
                                         FirebaseDatabase.getInstance().getReference("Registration")
                                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                                 .setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {

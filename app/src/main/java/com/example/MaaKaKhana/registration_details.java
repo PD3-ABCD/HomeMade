@@ -5,7 +5,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class registration_details {
     public String firstName, lastName, emailId, password, contactNo;
-    public LatLng latLng;
+
 
     public registration_details()
     {}
@@ -18,7 +18,7 @@ public class registration_details {
         this.contactNo = contactNo;
     }
 
-    public LatLng getLatLng() {
+    /*public LatLng getLatLng() {
         return latLng;
     }
 
@@ -32,5 +32,5 @@ public class registration_details {
 
     public double getLong() {
         return latLng.longitude;
-    }
+    }*/
 }

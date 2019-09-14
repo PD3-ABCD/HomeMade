@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -57,6 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Button btnsave;
     DatabaseReference reff;
     LatLng latLng;
+    Loc loc;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     @Override
@@ -137,14 +139,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void save(View v){
         //loc = new Loc();
-        reff = FirebaseDatabase.getInstance().getReference().child("Loc");
+        reff = FirebaseDatabase.getInstance().getReference().child("Loc").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         //loc.setLatLng(latLng);
         reff.push().setValue(latLng);
         Toast.makeText(MapsActivity.this,"Values Inserted",Toast.LENGTH_LONG).show();
     }
 
     public void next(View v){
-        Intent i = new Intent(this,Home_screen.class);
+        Intent i = new Intent(this, Home_screen.class);
         startActivity(i);
     }
 
@@ -208,6 +210,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Place current location marker
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
+       // loc=new Loc(location.getLatitude(),location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Current Position");
