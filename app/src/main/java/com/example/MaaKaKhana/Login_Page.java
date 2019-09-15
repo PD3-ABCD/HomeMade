@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,15 +71,15 @@ public class Login_Page extends AppCompatActivity {
                                         Intent intent = new Intent(Login_Page.this, MapsActivity.class);
                                         startActivity(intent);
                                         FirebaseUser user = mAuth.getCurrentUser();
-
+                                        setSession(user);
                                     } else {
 
                                         progressDialog.dismiss();
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(getApplicationContext(), "Sorry!! " + task.getException(),
                                                 Toast.LENGTH_SHORT).show();
+                                        Log.d("Login",task.getException().getLocalizedMessage());
                                     }
-
                                     // ...
                                 }
                             });
@@ -87,7 +90,15 @@ public class Login_Page extends AppCompatActivity {
         });
 
     }
-        public void register (View view)
+
+    private void setSession(FirebaseUser user) {
+        SharedPreferences sp = getSharedPreferences("session", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("user",user.getEmail());
+        editor.apply();
+    }
+
+    public void register (View view)
         {
             Intent intent = new Intent(this, Registration.class);
             startActivity(intent);

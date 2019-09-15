@@ -3,6 +3,7 @@ package com.example.MaaKaKhana;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
@@ -29,10 +30,21 @@ ImageView img;
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= new Intent(MainActivity.this, Login_Page.class);
+                Intent intent;
+                if (isUserLogin()) {
+                    intent = new Intent(MainActivity.this, Home_screen.class);
+                }
+                else{
+                    intent = new Intent(MainActivity.this, Login_Page.class);
+                }
                 startActivity(intent);
                 finish();
             }
         },timeout);
+    }
+
+    private boolean isUserLogin() {
+        SharedPreferences sp = getSharedPreferences("session", MODE_PRIVATE);
+        return !sp.getString("user","").isEmpty();
     }
 }
