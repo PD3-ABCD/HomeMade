@@ -1,4 +1,4 @@
-package com.example.MaaKaKhana.ui.ui.fav;
+package com.example.MaaKaKhana.ui.fav;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

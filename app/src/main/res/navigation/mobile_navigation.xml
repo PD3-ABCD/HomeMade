@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/navigation_fav"
-        android:name="com.example.MaaKaKhana.ui.ui.fav.FavFragment"
+        android:name="com.example.MaaKaKhana.ui.fav.FavFragment"
         android:label="@string/title_fav"
         tools:layout="@layout/fragment_fav" />
 
