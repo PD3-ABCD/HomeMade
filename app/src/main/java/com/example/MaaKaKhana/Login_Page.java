@@ -77,7 +77,7 @@ public class Login_Page extends AppCompatActivity {
                                         progressDialog.dismiss();
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(getApplicationContext(), "Sorry!! " + task.getException(),
-                                                Toast.LENGTH_SHORT).show();
+                                                Toast.LENGTH_LONG).show();
                                         Log.d("Login",task.getException().getLocalizedMessage());
                                     }
                                     // ...

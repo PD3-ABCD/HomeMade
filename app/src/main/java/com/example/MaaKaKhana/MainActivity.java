@@ -32,7 +32,7 @@ ImageView img;
             public void run() {
                 Intent intent;
                 if (isUserLogin()) {
-                    intent = new Intent(MainActivity.this, Home_screen.class);
+                    intent = new Intent(MainActivity.this, Home_Bottom.class);
                 }
                 else{
                     intent = new Intent(MainActivity.this, Login_Page.class);
