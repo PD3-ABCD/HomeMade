@@ -146,7 +146,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void next(View v){
-        Intent i = new Intent(this, Main2Activity.class);
+        Intent i = new Intent(this, Home_screen.class);
         startActivity(i);
     }
 
