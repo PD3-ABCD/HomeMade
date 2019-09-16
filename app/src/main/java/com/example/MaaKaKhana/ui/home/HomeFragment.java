@@ -12,6 +12,8 @@ import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.MaaKaKhana.R;
 import com.example.MaaKaKhana.datainsert;
@@ -22,17 +24,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
 
     ViewFlipper v_fliper;
-    private DatabaseReference mDatabase;
-    private ListView mfoodlist;
-    private ArrayList<String> mlist;
-    ArrayAdapter<String> adapter;
-    datainsert di;
+//    private DatabaseReference mDatabase;
+//    private ListView mfoodlist;
+//    private ArrayList<String> mlist;
+//    ArrayAdapter<String> adapter;
+//    datainsert di;
+
+    private List<ListData>listData;
+    private RecyclerView rv;
+    private MyAdapter adapter;
 
     public HomeFragment(){
 
@@ -52,6 +58,31 @@ public class HomeFragment extends Fragment {
             fliperImages(image);
         }
 
+        rv=(RecyclerView)view.findViewById(R.id.rev);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listData=new ArrayList<>();
+
+        final DatabaseReference nm= FirebaseDatabase.getInstance().getReference("datainsert");
+        nm.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()){
+                        ListData l=npsnapshot.getValue(ListData.class);
+                        listData.add(l);
+                    }
+                    adapter=new MyAdapter(listData);
+                    rv.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 //        imageView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -61,29 +92,31 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
 
-        di=new datainsert();
-        mfoodlist = (ListView) view.findViewById(R.id.foodlistview);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("datainsert");
-        mlist=new ArrayList<>();
-        adapter=new ArrayAdapter<String>(getActivity(),R.layout.food_info,R.id.foodInfo, mlist);
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot ds: dataSnapshot.getChildren())
-                {
-                    di= ds.getValue(datainsert.class);
-                    mlist.add(di.getFood_name().toString()+" "+di.getFood_desc().toString()+" "+ String.valueOf(di.getFood_price()));
-                }
-                mfoodlist.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        di=new datainsert();
+//        mfoodlist = (ListView) view.findViewById(R.id.foodlistview);
+//        mDatabase = FirebaseDatabase.getInstance().getReference().child("datainsert");
+//        mlist=new ArrayList<>();
+//        adapter=new ArrayAdapter<String>(getActivity(),R.layout.food_info,R.id.foodInfo, mlist);
+//
+//        mDatabase.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                for(DataSnapshot ds: dataSnapshot.getChildren())
+//                {
+//                    di= ds.getValue(datainsert.class);
+//                    mlist.add(di.getFood_name().toString()+" "+di.getFood_desc().toString()+" "+ String.valueOf(di.getFood_price()));
+//                }
+//                mfoodlist.setAdapter(adapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
         return view;
     }
@@ -102,9 +135,4 @@ public class HomeFragment extends Fragment {
         v_fliper.setOutAnimation(getContext(),android.R.anim.slide_out_right);
 
     }
-
-
-
-
-
 }

@@ -10,21 +10,12 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/v_fliper"/>
 
-    <ListView
-        android:id="@+id/foodlistview"
-        android:layout_width="406dp"
-        android:layout_height="521dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="206dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="4dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rev"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/v_fliper"
+        android:layout_alignParentBottom="false" />
+
 
 </RelativeLayout>
