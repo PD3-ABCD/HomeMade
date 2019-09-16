@@ -13,16 +13,16 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.MaaKaKhana.ui.dashboard.DashboardFragment"
+        android:name="com.example.MaaKaKhana.ui.cart.CartFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_cart" />
 
 
     <fragment
         android:id="@+id/navigation_fav"
-        android:name="com.example.MaaKaKhana.ui.fav.FavFragment"
+        android:name="com.example.MaaKaKhana.ui.seller.SellerFragment"
         android:label="@string/title_fav"
-        tools:layout="@layout/fragment_fav" />
+        tools:layout="@layout/fragment_seller" />
 
     <fragment
         android:id="@+id/navigation_logout"

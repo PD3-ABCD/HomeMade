@@ -1,14 +1,14 @@
-package com.example.MaaKaKhana.ui.fav;
+package com.example.MaaKaKhana.ui.seller;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class FavViewModel extends ViewModel {
+public class SellerViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public FavViewModel() {
+    public SellerViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is Favourite fragment");
     }

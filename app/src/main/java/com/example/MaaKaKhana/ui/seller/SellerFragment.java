@@ -1,6 +1,5 @@
-package com.example.MaaKaKhana.ui.fav;
+package com.example.MaaKaKhana.ui.seller;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.MaaKaKhana.R;
 import com.example.MaaKaKhana.datainsert;
@@ -22,9 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class FavFragment extends Fragment {
+public class SellerFragment extends Fragment {
 
-    //private FavViewModel favViewModel;
+    //private SellerViewModel favViewModel;
     EditText foodname,fooddesc,foodprice;
     Button savebtn,showbtn;
     DatabaseReference dbref;
@@ -36,8 +34,8 @@ public class FavFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
        // favViewModel =
-         //       ViewModelProviders.of(this).get(FavViewModel.class);
-        //View root = inflater.inflate(R.layout.fragment_fav, container, false);
+         //       ViewModelProviders.of(this).get(SellerViewModel.class);
+        //View root = inflater.inflate(R.layout.fragment_seller, container, false);
         //final TextView textView = root.findViewById(R.id.text_fav);
         //favViewModel.getText().observe(this, new Observer<String>() {
           //  @Override
@@ -46,12 +44,12 @@ public class FavFragment extends Fragment {
             //}
         //});
 
-        View view= inflater.inflate(R.layout.fragment_fav,container,false);
+        View view= inflater.inflate(R.layout.fragment_seller,container,false);
         foodname = view.findViewById(R.id.item_name);
         fooddesc = (EditText) view.findViewById(R.id.item_desc);
         foodprice = (EditText) view.findViewById(R.id.item_price);
         savebtn = (Button) view.findViewById(R.id.item_save);
-        showbtn=(Button)view.findViewById(R.id.showlist);
+        //showbtn=(Button)view.findViewById(R.id.showlist);
         food_detail = new datainsert();
         dbref = FirebaseDatabase.getInstance().getReference().child("datainsert").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         dbref.addValueEventListener(new ValueEventListener() {
@@ -83,20 +81,20 @@ public class FavFragment extends Fragment {
             }
         });
 
-        showbtn.setOnClickListener(new View.OnClickListener() {
+        /*showbtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                //Intent myIntent = new Intent(FavFragment.this, displaydatalist.class);
-                //FavFragment.this.startActivity(myIntent);
+                //Intent myIntent = new Intent(SellerFragment.this, displaydatalist.class);
+                //SellerFragment.this.startActivity(myIntent);
 
-                FavFragment saveButton = new FavFragment();
+                SellerFragment saveButton = new SellerFragment();
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.Save, saveButton);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
-        });
+        });*/
         return view;
     }
 }
