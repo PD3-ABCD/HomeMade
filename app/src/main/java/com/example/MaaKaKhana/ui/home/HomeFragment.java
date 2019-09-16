@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -12,12 +14,25 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.MaaKaKhana.R;
+import com.example.MaaKaKhana.datainsert;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 public class HomeFragment extends Fragment {
 
 
     ViewFlipper v_fliper;
+    private DatabaseReference mDatabase;
+    private ListView mfoodlist;
+    private ArrayList<String> mlist;
+    ArrayAdapter<String> adapter;
+    datainsert di;
 
     public HomeFragment(){
 
@@ -46,6 +61,30 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
 
+        di=new datainsert();
+        mfoodlist = (ListView) view.findViewById(R.id.foodlistview);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("datainsert");
+        mlist=new ArrayList<>();
+        adapter=new ArrayAdapter<String>(getActivity(),R.layout.food_info,R.id.foodInfo, mlist);
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot ds: dataSnapshot.getChildren())
+                {
+                    di= ds.getValue(datainsert.class);
+                    mlist.add(di.getFood_name().toString()+" "+di.getFood_desc().toString()+" "+ String.valueOf(di.getFood_price()));
+                }
+                mfoodlist.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         return view;
     }
 
@@ -63,6 +102,8 @@ public class HomeFragment extends Fragment {
         v_fliper.setOutAnimation(getContext(),android.R.anim.slide_out_right);
 
     }
+
+
 
 
 

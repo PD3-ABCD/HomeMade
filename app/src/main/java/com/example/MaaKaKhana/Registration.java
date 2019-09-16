@@ -27,6 +27,7 @@ public class Registration extends AppCompatActivity {
     Button btn_register;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
+    String MobilePattern = "[0-9]{10}";
 
 
     @Override
@@ -88,6 +89,11 @@ public class Registration extends AppCompatActivity {
                     text_contact_no.setError("Contact Number cannot be blank");
                 }
 
+                else if(!contact_no.matches(MobilePattern))
+                {
+                    Toast.makeText(Registration.this, "Sorry!! The contact number should contain 10 digits only", Toast.LENGTH_SHORT).show();
+                }
+
                 else
                 {
                     final ProgressDialog progressDialog = new ProgressDialog(Registration.this);
@@ -99,7 +105,7 @@ public class Registration extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        progressDialog.dismiss();
+
                                         registration_details information = new registration_details(
                                                 first_name,
                                                 last_name,
@@ -114,8 +120,9 @@ public class Registration extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
 
-
+                                                progressDialog.dismiss();
                                                 Toast.makeText(Registration.this, "Registration Successful! Please Login now.", Toast.LENGTH_SHORT).show();
+
                                                 startActivity(new Intent(getApplicationContext(),Login_Page.class));
                                             }
                                         });
