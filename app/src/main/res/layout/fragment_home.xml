@@ -14,7 +14,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rev"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/v_fliper"
         android:layout_alignParentBottom="false" />
 
