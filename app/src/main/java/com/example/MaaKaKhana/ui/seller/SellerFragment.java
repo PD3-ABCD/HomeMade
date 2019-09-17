@@ -51,12 +51,12 @@ public class SellerFragment extends Fragment {
         savebtn = (Button) view.findViewById(R.id.item_save);
         //showbtn=(Button)view.findViewById(R.id.showlist);
         food_detail = new datainsert();
-        dbref = FirebaseDatabase.getInstance().getReference().child("datainsert").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        dbref = FirebaseDatabase.getInstance().getReference().child("FoodItems");
         dbref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               // if (dataSnapshot.exists())
-                 //   maxid = (dataSnapshot.getChildrenCount());
+                if (dataSnapshot.exists())
+                    maxid = (dataSnapshot.getChildrenCount());
             }
 
             @Override
@@ -76,8 +76,8 @@ public class SellerFragment extends Fragment {
                 food_detail.setFood_desc(desc);
                 food_detail.setFood_price(price);
                 //dbref.push().setValue(food_detail);
-                dbref.setValue(food_detail);
-                Toast.makeText(getActivity(), "Food detail inserted successfully!", Toast.LENGTH_LONG);
+                dbref.child(String.valueOf(maxid + 1)).setValue(food_detail);
+                Toast.makeText(getActivity(), "Food detail inserted successfully!", Toast.LENGTH_LONG).show();
             }
         });
 

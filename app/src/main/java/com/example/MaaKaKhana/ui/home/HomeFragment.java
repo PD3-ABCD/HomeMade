@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         listData=new ArrayList<>();
 
-        final DatabaseReference nm= FirebaseDatabase.getInstance().getReference("datainsert");
+        final DatabaseReference nm= FirebaseDatabase.getInstance().getReference("FoodItems");
         nm.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
