@@ -23,10 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 public class SellerFragment extends Fragment {
 
     //private SellerViewModel favViewModel;
-    EditText foodname,fooddesc,foodprice;
+    EditText foodname,fooddesc,foodprice, foodquantity;
     Button savebtn,showbtn;
     DatabaseReference dbref;
-
     datainsert food_detail;
     long maxid=0;
 
@@ -48,6 +47,7 @@ public class SellerFragment extends Fragment {
         foodname = view.findViewById(R.id.item_name);
         fooddesc = (EditText) view.findViewById(R.id.item_desc);
         foodprice = (EditText) view.findViewById(R.id.item_price);
+        foodquantity = (EditText) view.findViewById(R.id.item_quantity);
         savebtn = (Button) view.findViewById(R.id.item_save);
         //showbtn=(Button)view.findViewById(R.id.showlist);
         food_detail = new datainsert();
@@ -72,9 +72,11 @@ public class SellerFragment extends Fragment {
                 String name = foodname.getText().toString().trim();
                 String desc = fooddesc.getText().toString().trim();
                 Double price = Double.parseDouble(foodprice.getText().toString().trim());
+                Double quantity = Double.parseDouble(foodquantity.getText().toString().trim());
                 food_detail.setFood_name(name);
                 food_detail.setFood_desc(desc);
                 food_detail.setFood_price(price);
+                food_detail.setFood_quantity(quantity);
                 //dbref.push().setValue(food_detail);
                 dbref.child(String.valueOf(maxid + 1)).setValue(food_detail);
                 Toast.makeText(getActivity(), "Food detail inserted successfully!", Toast.LENGTH_LONG).show();

@@ -1,4 +1,4 @@
-package com.example.MaaKaKhana.ui.home;
+package com.example.MaaKaKhana.ui.login_home;
 
 
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.MaaKaKhana.R;
-import com.example.MaaKaKhana.ui.home.ListData;
 
 import java.util.List;
 

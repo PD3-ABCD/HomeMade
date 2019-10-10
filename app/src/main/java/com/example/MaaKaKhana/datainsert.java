@@ -5,6 +5,7 @@ public class datainsert {
     private String food_name;
     private String food_desc;
     private double food_price;
+    private double food_quantity;
 
     public datainsert() {
     }
@@ -31,5 +32,13 @@ public class datainsert {
 
     public void setFood_price(double food_price) {
         this.food_price = food_price;
+    }
+
+    public double getFood_quantity() {
+        return food_quantity;
+    }
+
+    public void setFood_quantity(double food_quantity) {
+        this.food_quantity = food_quantity;
     }
 }

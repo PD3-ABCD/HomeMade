@@ -1,12 +1,10 @@
-package com.example.MaaKaKhana.ui.home;
+package com.example.MaaKaKhana.ui.login_home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -16,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.MaaKaKhana.R;
-import com.example.MaaKaKhana.datainsert;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,7 +44,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        View view= inflater.inflate(R.layout.fragment_home,container,false);
+        View view= inflater.inflate(R.layout.fragment_loginhome,container,false);
         v_fliper = view.findViewById(R.id.v_fliper);
 
         int images[]= {R.drawable.imag1,R.drawable.imag2,R.drawable.imag3};
@@ -91,8 +88,6 @@ public class HomeFragment extends Fragment {
 //                startActivity(intent);
 //            }
 //        });
-
-
 
 //        di=new datainsert();
 //        mfoodlist = (ListView) view.findViewById(R.id.foodlistview);

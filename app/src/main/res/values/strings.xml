@@ -10,8 +10,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_home__bottom">Home_Bottom</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Orders</string>
+    <string name="title_dashboard">Cart</string>
     <!--<string name="title_notifications">Notifications</string>-->
-    <string name="title_fav">Seller</string>
+    <string name="title_seller">Seller</string>
+    <string name="title_orderhistory">Order History</string>
     <string name="title_logout" />
 </resources>
