@@ -1,6 +1,7 @@
 package com.example.MaaKaKhana.ui.MyFoodItems;
 
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.MaaKaKhana.Home_Bottom;
 import com.example.MaaKaKhana.R;
 import com.example.MaaKaKhana.ui.MyFoodItems.ListData1;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,13 +43,12 @@ public class MyAdapter1 extends RecyclerView.Adapter<MyAdapter1.ViewHolder> {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.food_items_seller,parent,false);
         return new ViewHolder(view);
 
-
     }
 
 @Override
-public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         ld=listData1.get(position);
-       // holder.txtid.setText(ld.getId());
+        holder.txtid.setText(ld.getId());
         holder.txtname.setText(ld.getFood_name());
         holder.txtdesc.setText(ld.getFood_desc());
         holder.txtprice.setText("₹ "+String.valueOf(ld.getFood_price()));
@@ -51,18 +56,26 @@ public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
             @Override
             public void onClick(View view) {
 
-                    final DatabaseReference databaseReference, databaseReference1;
-                    databaseReference= FirebaseDatabase.getInstance().getReference("Registration");
-                    databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Food Items").child(ld.getId()).removeValue();
-                    databaseReference1=FirebaseDatabase.getInstance().getReference("FoodItems");
-                    databaseReference1.child(ld.getId()).removeValue();
+                    String id2=holder.txtid.getText().toString().trim();
 
-                    notifyDataSetChanged();
-                    notifyItemRemoved(position);
-                    Toast.makeText(view.getContext(), "Item Deleted! Come Back to check" , Toast.LENGTH_SHORT).show();
-                    
+                    final DatabaseReference databaseReference, databaseReference1, databaseReference2;
+                    databaseReference= FirebaseDatabase.getInstance().getReference("Registration");
+                    databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Food Items").child(id2).removeValue();
+                    databaseReference1=FirebaseDatabase.getInstance().getReference("FoodItems");
+                databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id2).removeValue();
+                    databaseReference1.child(id2).removeValue();
+
+                    //notifyItemRemoved(position);
+
+
+                new ViewHolder(view);
+
+                Toast.makeText(view.getContext(), "Item Deleted! Come Back to check" , Toast.LENGTH_SHORT).show();
             }
+
+
         });
+
         }
 
 @Override
@@ -79,7 +92,7 @@ public class ViewHolder extends RecyclerView.ViewHolder{
 
     public ViewHolder(View itemView) {
         super(itemView);
-       // txtid=(TextView)itemView.findViewById(R.id.idtxt1);
+        txtid=(TextView)itemView.findViewById(R.id.idtxt);
         txtname=(TextView)itemView.findViewById(R.id.name1);
         txtdesc=(TextView)itemView.findViewById(R.id.description1);
         txtprice=(TextView)itemView.findViewById(R.id.price1);

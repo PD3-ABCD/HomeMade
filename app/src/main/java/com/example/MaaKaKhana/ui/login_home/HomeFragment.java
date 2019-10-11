@@ -67,6 +67,7 @@ public class HomeFragment extends Fragment {
                 if (dataSnapshot.exists()){
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()){
                         ListData l=npsnapshot.getValue(ListData.class);
+                        l.setId(npsnapshot.getKey());
                         listData.add(l);
                     }
                     adapter=new MyAdapter(listData);

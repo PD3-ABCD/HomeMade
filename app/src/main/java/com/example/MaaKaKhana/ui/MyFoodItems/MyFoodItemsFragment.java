@@ -2,6 +2,7 @@ package com.example.MaaKaKhana.ui.MyFoodItems;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -93,8 +94,6 @@ public class MyFoodItemsFragment extends Fragment {
 
 
     }
-
-
 
 
 }

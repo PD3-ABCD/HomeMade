@@ -1,31 +1,31 @@
-package com.example.MaaKaKhana.ui.login_home;
+package com.example.MaaKaKhana.ui.cart;
 
-public class ListData {
+public class ListData2 {
     private String id;
     // same as firebase field name
     private String food_name;
     private String food_desc;
-    private Double food_price;
-    private int food_quantity;
+    private Long food_price;
+    private Long food_quantity;
 
 
-    public Double getFood_price() {
+    public Long getFood_price() {
         return food_price;
     }
 
-    public void setFood_price(Double food_price) {
+    public void setFood_price(Long food_price) {
         this.food_price = food_price;
     }
 
-    public int getFood_quantity() {
+    public Long getFood_quantity() {
         return food_quantity;
     }
 
-    public void setFood_quantity(int food_quantity) {
+    public void setFood_quantity(Long food_quantity) {
         this.food_quantity = food_quantity;
     }
 
-    public ListData() {
+    public ListData2() {
     }
 
     public String getId() {
@@ -51,6 +51,4 @@ public class ListData {
     public void setFood_desc(String food_desc) {
         this.food_desc = food_desc;
     }
-
-
 }

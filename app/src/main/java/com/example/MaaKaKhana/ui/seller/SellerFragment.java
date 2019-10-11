@@ -81,8 +81,11 @@ public class SellerFragment extends Fragment {
                 //dbref.push().setValue(food_detail);
                 dbref.child(String.valueOf(maxid + 1)).setValue(food_detail);
                 dbref1.child(String.valueOf(maxid + 1)).setValue(food_detail);
-
                 Toast.makeText(getActivity(), "Food detail inserted successfully!", Toast.LENGTH_LONG).show();
+                foodname.getText().clear();
+                fooddesc.getText().clear();
+                foodprice.getText().clear();
+                foodquantity.getText().clear();
             }
         });
 
