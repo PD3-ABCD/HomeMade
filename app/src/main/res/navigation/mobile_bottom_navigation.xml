@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_seller" />
 
     <fragment
+        android:id="@+id/navigation_myfooditems"
+        android:name="com.example.MaaKaKhana.ui.MyFoodItems.MyFoodItemsFragment"
+        android:label="@string/title_myfooditems"
+        tools:layout="@layout/fragment_seller" />
+
+    <fragment
         android:id="@+id/navigation_logout"
         android:name="com.example.MaaKaKhana.ui.logout.LogoutFragment"
         android:label="@string/title_logout" />

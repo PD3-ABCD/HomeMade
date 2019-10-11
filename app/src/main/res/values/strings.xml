@@ -14,5 +14,6 @@
     <!--<string name="title_notifications">Notifications</string>-->
     <string name="title_seller">Seller</string>
     <string name="title_orderhistory">Order History</string>
+    <string name="title_myfooditems">My Food Items</string>
     <string name="title_logout" />
 </resources>

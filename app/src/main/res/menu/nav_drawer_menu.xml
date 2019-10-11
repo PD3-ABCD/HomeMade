@@ -10,6 +10,10 @@
         android:id="@+id/navigation_fav"
         android:icon="@drawable/ic_seller_account_black_24dp"
         android:title="@string/title_seller" />
+    <item
+        android:id="@+id/navigation_myfooditems"
+        android:icon="@drawable/ic_seller_account_black_24dp"
+        android:title="@string/title_myfooditems" />
 
     <item
         android:id="@+id/navigation_logout"
