@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="?attr/actionBarSize"
-    android:layout_weight="1">
+    >
 
     <View
         android:id="@+id/view1"
@@ -136,5 +136,6 @@
         android:textColor="#FFF"
         android:textSize="18sp"
         android:layout_below="@id/linearLayout2" />
+
 
 </RelativeLayout>

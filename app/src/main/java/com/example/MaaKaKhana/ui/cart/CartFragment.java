@@ -1,5 +1,6 @@
 package com.example.MaaKaKhana.ui.cart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.MaaKaKhana.MeraUPI;
 import com.example.MaaKaKhana.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +46,14 @@ public class CartFragment extends Fragment {
         listData2 = new ArrayList<>();
         ll = (LinearLayout)view.findViewById(R.id.linearLayout2);
         b1=(Button)view.findViewById(R.id.btnPay);
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MeraUPI.class);
+                startActivity(intent);
+            }
+        });
 
         final DatabaseReference nm = FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart");
         nm.addListenerForSingleValueEvent(new ValueEventListener() {
