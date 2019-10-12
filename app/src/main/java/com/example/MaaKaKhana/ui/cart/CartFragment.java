@@ -60,6 +60,7 @@ public class CartFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    ll.setVisibility(view.VISIBLE);
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
                         l = npsnapshot.getValue(ListData2.class);
                         l.setId(npsnapshot.getKey());
