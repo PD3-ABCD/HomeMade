@@ -55,6 +55,8 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
                 final DatabaseReference databaseReference;
                 databaseReference= FirebaseDatabase.getInstance().getReference("Registration");
                 databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id2).removeValue();
+
+                Toast.makeText(view.getContext(), "Item Deleted! Come Back to check" , Toast.LENGTH_SHORT).show();
             }
         });
         }
