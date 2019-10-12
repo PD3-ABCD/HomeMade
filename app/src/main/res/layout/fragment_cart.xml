@@ -30,10 +30,10 @@
         android:id="@+id/rev2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/linearLayout2"
         android:layout_below="@+id/MeraTitle"
-        android:layout_alignParentBottom="false"
 
-        />
+        android:layout_alignParentBottom="false" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
