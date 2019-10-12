@@ -15,7 +15,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/bgitems"
         android:orientation="vertical"
-        android:paddingTop="20dp"
+        android:paddingTop="5dp"
         android:layout_below="@+id/MeraTitle">
 
     <!--<View
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
             <ImageView
