@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.MaaKaKhana.R;
-import com.example.MaaKaKhana.ui.MyFoodItems.ListData1;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -58,7 +57,6 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
                 int curposition=listData2.indexOf(ld);
                 listData2.remove(ld);
                 notifyItemRemoved(curposition);
-
                 Toast.makeText(view.getContext(), "Item Deleted! Come Back to check" , Toast.LENGTH_SHORT).show();
             }
         });
@@ -84,6 +82,7 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         txtprice=(TextView)itemView.findViewById(R.id.itemprice);
         b1=(Button)itemView.findViewById(R.id.btn1);
         b2=(Button)itemView.findViewById(R.id.btnRemove);
+
     }
 
 }
