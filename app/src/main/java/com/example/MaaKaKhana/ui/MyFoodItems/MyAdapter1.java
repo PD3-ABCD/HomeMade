@@ -66,9 +66,9 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
                     databaseReference1=FirebaseDatabase.getInstance().getReference("FoodItems");
                     databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id2).removeValue();
                     databaseReference1.child(id2).removeValue();
-                    //notifyDataSetChanged();
-                    //notifyItemRemoved(position);
-                    //myAdapter1.refresh(listData1);
+                    int curposition=listData1.indexOf(ld);
+                    listData1.remove(ld);
+                    notifyItemRemoved(curposition);
                 new ViewHolder(view);
 
                 Toast.makeText(view.getContext(), "Item Deleted! Come Back to check" , Toast.LENGTH_SHORT).show();
@@ -99,16 +99,6 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         b1=(Button)itemView.findViewById(R.id.btn1);
     }
     }
-
-    public void refresh(List<ListData1> listData1)
-    {
-        this.listData1.clear();
-        this.listData1.addAll(listData1);
-        notifyDataSetChanged();
-    }
-
-
-
 
 }
 
