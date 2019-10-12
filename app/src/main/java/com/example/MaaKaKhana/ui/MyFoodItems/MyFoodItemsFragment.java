@@ -65,6 +65,7 @@ public class MyFoodItemsFragment extends Fragment {
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
                         l = npsnapshot.getValue(ListData1.class);
                         l.setId(npsnapshot.getKey());
+
                         listData1.add(l);
                     }
                     adapter1 = new MyAdapter1(listData1);

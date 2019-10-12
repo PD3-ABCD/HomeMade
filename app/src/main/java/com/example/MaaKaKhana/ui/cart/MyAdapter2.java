@@ -42,10 +42,21 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.ViewHolder> {
 @Override
 public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         ld=listData2.get(position);
-       // holder.txtid.setText(ld.getId());
+        holder.txtid.setText(ld.getId());
         holder.txtname.setText(ld.getFood_name());
        // holder.txtdesc.setText(ld.getFood_desc());
         holder.txtprice.setText("₹ "+String.valueOf(ld.getFood_price()));
+
+        holder.b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String id2=holder.txtid.getText().toString().trim();
+
+                final DatabaseReference databaseReference;
+                databaseReference= FirebaseDatabase.getInstance().getReference("Registration");
+                databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id2).removeValue();
+            }
+        });
         }
 
 @Override
@@ -57,16 +68,17 @@ public int getItemCount() {
 
 public class ViewHolder extends RecyclerView.ViewHolder{
     private TextView txtid, txtname,txtdesc,txtprice;
-    private Button b1;
+    private Button b1, b2;
 
 
     public ViewHolder(View itemView) {
         super(itemView);
-       // txtid=(TextView)itemView.findViewById(R.id.idtxt1);
+        txtid=(TextView)itemView.findViewById(R.id.idtxt1);
         txtname=(TextView)itemView.findViewById(R.id.itemname);
        // txtdesc=(TextView)itemView.findViewById(R.id.description1);
         txtprice=(TextView)itemView.findViewById(R.id.itemprice);
         b1=(Button)itemView.findViewById(R.id.btn1);
+        b2=(Button)itemView.findViewById(R.id.btnRemove);
     }
 
 }

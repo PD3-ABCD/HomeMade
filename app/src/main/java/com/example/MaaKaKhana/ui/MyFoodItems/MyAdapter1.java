@@ -29,6 +29,8 @@ public class MyAdapter1 extends RecyclerView.Adapter<MyAdapter1.ViewHolder> {
 
     private List<ListData1>listData1;
     private ListData1 ld;
+    private String id2;
+    MyAdapter1 myAdapter1;
 
 
     public MyAdapter1(List<ListData1> listData1) {
@@ -56,23 +58,21 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
             @Override
             public void onClick(View view) {
 
-                    String id2=holder.txtid.getText().toString().trim();
+                    id2=holder.txtid.getText().toString().trim();
 
                     final DatabaseReference databaseReference, databaseReference1, databaseReference2;
                     databaseReference= FirebaseDatabase.getInstance().getReference("Registration");
                     databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Food Items").child(id2).removeValue();
                     databaseReference1=FirebaseDatabase.getInstance().getReference("FoodItems");
-                databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id2).removeValue();
+                    databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id2).removeValue();
                     databaseReference1.child(id2).removeValue();
-
+                    //notifyDataSetChanged();
                     //notifyItemRemoved(position);
-
-
+                    //myAdapter1.refresh(listData1);
                 new ViewHolder(view);
 
                 Toast.makeText(view.getContext(), "Item Deleted! Come Back to check" , Toast.LENGTH_SHORT).show();
             }
-
 
         });
 
@@ -98,16 +98,15 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         txtprice=(TextView)itemView.findViewById(R.id.price1);
         b1=(Button)itemView.findViewById(R.id.btn1);
     }
+    }
 
+    public void refresh(List<ListData1> listData1)
+    {
+        this.listData1.clear();
+        this.listData1.addAll(listData1);
+        notifyDataSetChanged();
+    }
 
-
-
-
-
-
-
-
-}
 
 
 
