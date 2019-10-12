@@ -1,10 +1,12 @@
 package com.example.MaaKaKhana.ui.login_home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.MaaKaKhana.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +30,8 @@ public class HomeFragment extends Fragment {
 
 
     ViewFlipper v_fliper;
+    TextView tv;
+
 //    private DatabaseReference mDatabase;
 //    private ListView mfoodlist;
 //    private ArrayList<String> mlist;
@@ -44,6 +49,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
+
+        //Flipper part
         View view= inflater.inflate(R.layout.fragment_loginhome,container,false);
         v_fliper = view.findViewById(R.id.v_fliper);
 
@@ -55,6 +62,13 @@ public class HomeFragment extends Fragment {
             fliperImages(image);
         }
 
+
+        //Address bar
+        tv=(TextView)view.findViewById(R.id.location_details);
+        address_view();
+
+
+        //Recycler part
         rv=(RecyclerView)view.findViewById(R.id.rev);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -81,39 +95,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent=new Intent(getActivity(),ImageSliderBar.class);
-//                startActivity(intent);
-//            }
-//        });
-
-//        di=new datainsert();
-//        mfoodlist = (ListView) view.findViewById(R.id.foodlistview);
-//        mDatabase = FirebaseDatabase.getInstance().getReference().child("datainsert");
-//        mlist=new ArrayList<>();
-//        adapter=new ArrayAdapter<String>(getActivity(),R.layout.food_info,R.id.foodInfo, mlist);
-//
-//        mDatabase.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                for(DataSnapshot ds: dataSnapshot.getChildren())
-//                {
-//                    di= ds.getValue(datainsert.class);
-//                    mlist.add(di.getFood_name().toString()+" "+di.getFood_desc().toString()+" "+ String.valueOf(di.getFood_price()));
-//                }
-//                mfoodlist.setAdapter(adapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
         return view;
     }
 
@@ -131,4 +112,22 @@ public class HomeFragment extends Fragment {
         v_fliper.setOutAnimation(getContext(),android.R.anim.slide_out_right);
 
     }
+
+    public void address_view(){
+        DatabaseReference l = FirebaseDatabase.getInstance().getReference().child("Loc").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("address");
+        l.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String a="Location: "+dataSnapshot.getValue(String.class);
+                tv.setText(a);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
 }

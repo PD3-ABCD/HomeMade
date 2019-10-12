@@ -36,8 +36,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.List;
@@ -59,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     DatabaseReference reff;
     LatLng latLng;
     Loc loc;
+    String add1;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     @Override
@@ -139,9 +143,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void save(View v){
         //loc = new Loc();
-        reff = FirebaseDatabase.getInstance().getReference().child("Loc").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         //loc.setLatLng(latLng);
-        reff.push().setValue(latLng);
+        //DatabaseReference user_ref=FirebaseDatabase.getInstance().getReference().child("Loc");
+        reff = FirebaseDatabase.getInstance().getReference().child("Loc").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        reff.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null){
+                    reff.child("latitude").setValue(latLng.latitude);
+                    reff.child("longitude").setValue(latLng.longitude);
+                    reff.child("address").setValue(add1);
+                }
+                else
+                {
+                    reff.removeValue();
+                    reff.child("latitude").setValue(latLng.latitude);
+                    reff.child("longitude").setValue(latLng.longitude);
+                    reff.child("address").setValue(add1);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         Toast.makeText(MapsActivity.this,"Values Inserted",Toast.LENGTH_LONG).show();
     }
 
@@ -228,6 +255,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         try {
             List<Address> addresses = geocoder.getFromLocation(lat, lng,10);
             Address obj = addresses.get(0);
+            add1 = obj.getAddressLine(0);
             String add = obj.getAddressLine(0);
             add = add + "\n" + obj.getCountryName();
             add = add + "\n" + obj.getCountryCode();
