@@ -2,12 +2,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="?attr/actionBarSize"
-    >
+   >
 
     <View
         android:id="@+id/view1"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="match_parent"
         android:background="@drawable/bgheader"
          />
 
@@ -26,8 +26,6 @@
         />
 
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rev2"
         android:layout_width="match_parent"
@@ -41,16 +39,15 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="92dp"
+        android:layout_below="@id/rev2"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="444dp"
         android:layout_marginEnd="16dp"
-        android:visibility="invisible"
         android:background="@drawable/bgitems"
-        android:gravity="bottom"
         android:orientation="vertical"
-        android:paddingTop="20dp"
-        android:layout_below="@id/rev2">
+        android:paddingTop="20dp">
 
 
         <LinearLayout
@@ -64,14 +61,15 @@
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="26dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/priceSubTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="104dp"
                     android:layout_height="wrap_content"
                     android:text="Total Price"
-                    android:textColor="#BEBEBE"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="18sp" />
 
                 <TextView
@@ -87,10 +85,25 @@
             <LinearLayout
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:orientation="vertical">
 
-                <TextView
+                <Button
+                    android:id="@+id/btnPay"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/linearLayout2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/bgbtnremove"
+                    android:text="Pay Now"
+                    android:textAllCaps="false"
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <!--<TextView
                     android:id="@+id/discountSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -104,38 +117,22 @@
                     android:layout_height="wrap_content"
                     android:text="0%"
                     android:textColor="#0F5860"
-                    android:textSize="22sp" />
+                    android:textSize="22sp" />-->
 
             </LinearLayout>
 
         </LinearLayout>
 
 
-        <View
+        <!--<View
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_marginTop="20dp"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimary" />-->
 
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnPay"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="84dp"
-        android:visibility="invisible"
-        android:background="@drawable/bgbtnremove"
-        android:text="Pay Now"
-        android:textAllCaps="false"
-        android:textColor="#FFF"
-        android:textSize="18sp"
-        android:layout_below="@id/linearLayout2" />
 
 
 </RelativeLayout>

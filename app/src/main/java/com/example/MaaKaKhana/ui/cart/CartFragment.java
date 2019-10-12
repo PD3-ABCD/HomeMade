@@ -60,10 +60,6 @@ public class CartFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-
-                    ll.setVisibility(View.VISIBLE);
-
-                    b1.setVisibility(View.VISIBLE);
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
                         l = npsnapshot.getValue(ListData2.class);
                         l.setId(npsnapshot.getKey());
@@ -73,8 +69,6 @@ public class CartFragment extends Fragment {
                     rv2.setAdapter(adapter2);
 
                 } else {
-                    ll.setVisibility(View.INVISIBLE);
-                    b1.setVisibility(View.INVISIBLE);
                     Toast.makeText(getActivity(), "Sorry!! No food item available", Toast.LENGTH_SHORT).show();
                 }
             }
