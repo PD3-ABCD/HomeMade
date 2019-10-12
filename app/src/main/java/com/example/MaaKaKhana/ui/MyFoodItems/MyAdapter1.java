@@ -31,6 +31,7 @@ public class MyAdapter1 extends RecyclerView.Adapter<MyAdapter1.ViewHolder> {
     private ListData1 ld;
     private String id2;
     MyAdapter1 myAdapter1;
+    private int curposition;
 
 
     public MyAdapter1(List<ListData1> listData1) {
@@ -50,6 +51,7 @@ public class MyAdapter1 extends RecyclerView.Adapter<MyAdapter1.ViewHolder> {
 @Override
 public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         ld=listData1.get(position);
+        //curposition=listData1.indexOf(ld);
         holder.txtid.setText(ld.getId());
         holder.txtname.setText(ld.getFood_name());
         holder.txtdesc.setText(ld.getFood_desc());
@@ -57,6 +59,7 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
         holder.b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                     id2=holder.txtid.getText().toString().trim();
 
@@ -66,9 +69,8 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
                     databaseReference1=FirebaseDatabase.getInstance().getReference("FoodItems");
                     databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id2).removeValue();
                     databaseReference1.child(id2).removeValue();
-                    int curposition=listData1.indexOf(ld);
                     listData1.remove(ld);
-                    notifyItemRemoved(curposition);
+                    notifyItemRemoved(position);
                 new ViewHolder(view);
 
                 Toast.makeText(view.getContext(), "Item Deleted! Come Back to check" , Toast.LENGTH_SHORT).show();

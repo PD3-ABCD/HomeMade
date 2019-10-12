@@ -21,7 +21,7 @@ import java.util.List;
 public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.ViewHolder> {
 
     private List<ListData2>listData2;
-    private ListData2 ld;
+    private ListData2 ld2;
 
 
     public MyAdapter2(List<ListData2> listData2) {
@@ -40,11 +40,11 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.ViewHolder> {
 
 @Override
 public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        ld=listData2.get(position);
-        holder.txtid.setText(ld.getId());
-        holder.txtname.setText(ld.getFood_name());
+        ld2=listData2.get(position);
+        holder.txtid.setText(ld2.getId());
+        holder.txtname.setText(ld2.getFood_name());
        // holder.txtdesc.setText(ld.getFood_desc());
-        holder.txtprice.setText("₹ "+String.valueOf(ld.getFood_price()));
+        holder.txtprice.setText("₹ "+String.valueOf(ld2.getFood_price()));
 
         holder.b2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,9 +54,11 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
                 final DatabaseReference databaseReference;
                 databaseReference= FirebaseDatabase.getInstance().getReference("Registration");
                 databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id2).removeValue();
-                int curposition=listData2.indexOf(ld);
-                listData2.remove(ld);
-                notifyItemRemoved(curposition);
+                //int curposition=listData2.indexOf(ld);
+                listData2.remove(ld2);
+                notifyItemRemoved(position);
+
+                new ViewHolder(view);
                 Toast.makeText(view.getContext(), "Item Deleted! Come Back to check" , Toast.LENGTH_SHORT).show();
             }
         });
