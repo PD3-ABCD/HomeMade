@@ -17,6 +17,7 @@ import com.example.MaaKaKhana.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.ViewHolder> {
     private static final String TAG = "MyAdapter2";
     private List<ListData2>listData2;
     private ListData2 ld2;
+    ElegantNumberButton elegantNumberButton;
 
     public MyAdapter2(List<ListData2> listData2) {
         this.listData2 = listData2;
@@ -49,7 +51,9 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
         holder.txtname.setText(ld2.getFood_name());
        // holder.txtdesc.setText(ld2.getFood_desc());
         holder.txtprice.setText("₹ "+String.valueOf(ld2.getFood_price()));
-        holder.button.setNumber(String.valueOf(ld2.getFood_quantity()));
+       // holder.elegantNumberButton.setNumber(String.valueOf(ld2.getFood_quantity()));
+       // holder.elegantNumberButton.setRange(1,10);
+
 
         holder.b2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,13 +67,15 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
                 listData2.remove(ld3);
                 notifyDataSetChanged();
                 notifyItemRemoved(position);
-
                 new ViewHolder(view);
-                Toast.makeText(view.getContext(), "Item Deleted! Come Back to check" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Item Deleted!" , Toast.LENGTH_SHORT).show();
             }
         });
 
-        holder.button.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
+
+
+
+        holder.elegantNumberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
             @Override
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
                 //write logic here
@@ -84,6 +90,7 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
                 databaseReference1.child("food_quantity").setValue(newValue);
                 notifyDataSetChanged();
                 notifyItemChanged(position);
+
                 //Log.d(TAG, "onValueChange() called with: view = [" + view + "], oldValue = [" + oldValue + "], newValue = [" + newValue + "]");
             }
         });
@@ -99,7 +106,7 @@ public int getItemCount() {
 public class ViewHolder extends RecyclerView.ViewHolder{
     private TextView txtid, txtname,txtdesc,txtprice;
     private Button b1, b2;
-    private ElegantNumberButton button;
+    private ElegantNumberButton elegantNumberButton;
 
 
     public ViewHolder(View itemView) {
@@ -110,11 +117,13 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         txtprice=(TextView)itemView.findViewById(R.id.itemprice);
         b1=(Button)itemView.findViewById(R.id.btn1);
         b2=(Button)itemView.findViewById(R.id.btnRemove);
-
-        button = itemView.findViewById(R.id.myButton);
+        elegantNumberButton=itemView.findViewById(R.id.myButton);
+        //button = itemView.findViewById(R.id.myButton);
     }
 
 }
+
+
 
 }
 

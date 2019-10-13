@@ -2,7 +2,6 @@ package com.example.MaaKaKhana.ui.cart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.MaaKaKhana.IncrementDecrement;
 import com.example.MaaKaKhana.MeraUPI;
 import com.example.MaaKaKhana.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class CartFragment extends Fragment {
     private ListData2 l;
     private LinearLayout ll;
     private Button b1;
-    private IncrementDecrement icdc;
+    //private IncrementDecrement icdc;
     private int total=0;
     private int count;
     private TextView t_price;
@@ -76,6 +75,11 @@ public class CartFragment extends Fragment {
                         l = npsnapshot.getValue(ListData2.class);
                         l.setId(npsnapshot.getKey());
                         listData2.add(l);
+                        total=total+(l.getFood_price().intValue()*l.getFood_quantity());
+                        t_price=(TextView)view.findViewById(R.id.priceTitle);
+                        String t1=Integer.toString(total);
+                        //Log.d("IGV",t1);
+                        t_price.setText("Rs. "+t1);
 
                     }
                     adapter2 = new MyAdapter2(listData2);
@@ -92,10 +96,7 @@ public class CartFragment extends Fragment {
         });
 
 
-        t_price=(TextView)view.findViewById(R.id.priceTitle);
-        String t1=Integer.toString(total);
-        Log.d("IGV",t1);
-        t_price.setText("Rs. "+t1);
+
 
 
         return view;
