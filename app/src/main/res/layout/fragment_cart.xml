@@ -76,7 +76,7 @@
                     android:id="@+id/priceTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rs. 0"
+                    android:text="test"
                     android:textColor="#0F5860"
                     android:textSize="22sp" />
 

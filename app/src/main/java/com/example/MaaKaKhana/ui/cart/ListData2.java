@@ -6,7 +6,7 @@ public class ListData2 {
     private String food_name;
     private String food_desc;
     private Long food_price;
-    private Long food_quantity;
+    private int food_quantity;
 
 
     public Long getFood_price() {
@@ -17,11 +17,11 @@ public class ListData2 {
         this.food_price = food_price;
     }
 
-    public Long getFood_quantity() {
+    public int getFood_quantity() {
         return food_quantity;
     }
 
-    public void setFood_quantity(Long food_quantity) {
+    public void setFood_quantity(int food_quantity) {
         this.food_quantity = food_quantity;
     }
 

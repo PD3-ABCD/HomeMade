@@ -76,6 +76,7 @@ public class CartFragment extends Fragment {
                         l = npsnapshot.getValue(ListData2.class);
                         l.setId(npsnapshot.getKey());
                         listData2.add(l);
+
                     }
                     adapter2 = new MyAdapter2(listData2);
                     rv2.setAdapter(adapter2);

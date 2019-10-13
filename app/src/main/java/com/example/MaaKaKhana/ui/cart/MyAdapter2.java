@@ -47,8 +47,9 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
         ld2=listData2.get(position);
         holder.txtid.setText(ld2.getId());
         holder.txtname.setText(ld2.getFood_name());
-       // holder.txtdesc.setText(ld.getFood_desc());
+       // holder.txtdesc.setText(ld2.getFood_desc());
         holder.txtprice.setText("₹ "+String.valueOf(ld2.getFood_price()));
+        holder.button.setNumber(String.valueOf(ld2.getFood_quantity()));
 
         holder.b2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,14 +74,16 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
                 //write logic here
                 ListData2 item = listData2.get(position);
-
-                HashMap<String, Object> result = new HashMap<>();
-                result.put("food_quantity", newValue);
+                final String id3=holder.txtid.getText().toString().trim();
+                //HashMap<String, Object> result = new HashMap<>();
+                //result.put("food_quantity", newValue);
 
                 holder.txtprice.setText( "₹ "+Long.toString(item.getFood_price() * newValue));
                 final DatabaseReference databaseReference1;
-                databaseReference1= FirebaseDatabase.getInstance().getReference("Registration");
-                databaseReference1.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id2).updateChildren(result);
+                databaseReference1= FirebaseDatabase.getInstance().getReference("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id3);
+                databaseReference1.child("food_quantity").setValue(newValue);
+                notifyDataSetChanged();
+                notifyItemChanged(position);
                 //Log.d(TAG, "onValueChange() called with: view = [" + view + "], oldValue = [" + oldValue + "], newValue = [" + newValue + "]");
             }
         });
@@ -103,7 +106,7 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         super(itemView);
         txtid=(TextView)itemView.findViewById(R.id.idtxt1);
         txtname=(TextView)itemView.findViewById(R.id.itemname);
-       // txtdesc=(TextView)itemView.findViewById(R.id.description1);
+     //   txtdesc=(TextView)itemView.findViewById(R.id.description1);
         txtprice=(TextView)itemView.findViewById(R.id.itemprice);
         b1=(Button)itemView.findViewById(R.id.btn1);
         b2=(Button)itemView.findViewById(R.id.btnRemove);
