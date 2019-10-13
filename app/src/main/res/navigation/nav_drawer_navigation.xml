@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/navigation_fav"
         android:name="com.example.MaaKaKhana.ui.seller.SellerFragment"
-        android:label="@string/title_seller"
+        android:label="New Product"
         tools:layout="@layout/fragment_seller" />
 
     <fragment
