@@ -23,8 +23,9 @@ public class IncrementDecrement extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String num=elegantNumberButton.getNumber();
+                ret_count();
                 //Log.e("Number",num);
-                Toast.makeText(IncrementDecrement.this, "Quantity is: "+num, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(IncrementDecrement.this, "Quantity is: "+num, Toast.LENGTH_SHORT).show();
             }
         });
     }

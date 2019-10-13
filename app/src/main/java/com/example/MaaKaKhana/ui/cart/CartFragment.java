@@ -65,19 +65,7 @@ public class CartFragment extends Fragment {
         });
 
 
-        //Total coount
-        adapter2=new MyAdapter2(listData2);
-        t_price=(TextView)view.findViewById(R.id.priceTitle);
-        count=adapter2.getItemCount();
-        for (int i=0;i<count;i++){
-            total+=l.getFood_price();
-
-        }
-
-        String t1=Integer.toString(total);
-        Log.d("IGV",t1);
-        t_price.setText("Rs. "+t1);
-
+        //Filling Cart
         final DatabaseReference nm = FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart");
         nm.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -101,6 +89,14 @@ public class CartFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+
+        t_price=(TextView)view.findViewById(R.id.priceTitle);
+        String t1=Integer.toString(total);
+        Log.d("IGV",t1);
+        t_price.setText("Rs. "+t1);
+
+
         return view;
     }
 }
