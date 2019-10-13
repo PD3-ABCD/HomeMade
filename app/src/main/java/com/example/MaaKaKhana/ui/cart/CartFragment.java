@@ -2,6 +2,7 @@ package com.example.MaaKaKhana.ui.cart;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,8 +71,12 @@ public class CartFragment extends Fragment {
         count=adapter2.getItemCount();
         for (int i=0;i<count;i++){
             total+=l.getFood_price();
+
         }
-        t_price.setText("Rs. "+total);
+
+        String t1=Integer.toString(total);
+        Log.d("IGV",t1);
+        t_price.setText("Rs. "+t1);
 
         final DatabaseReference nm = FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart");
         nm.addListenerForSingleValueEvent(new ValueEventListener() {

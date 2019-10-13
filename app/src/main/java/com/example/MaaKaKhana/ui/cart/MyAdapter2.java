@@ -73,7 +73,7 @@ public int getItemCount() {
 
 public class ViewHolder extends RecyclerView.ViewHolder{
     private TextView txtid, txtname,txtdesc,txtprice;
-    private Button b1, b2;
+    private Button b1, b2,counter;
 
 
     public ViewHolder(View itemView) {
@@ -84,7 +84,6 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         txtprice=(TextView)itemView.findViewById(R.id.itemprice);
         b1=(Button)itemView.findViewById(R.id.btn1);
         b2=(Button)itemView.findViewById(R.id.btnRemove);
-
     }
 
 }

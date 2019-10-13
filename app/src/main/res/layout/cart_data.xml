@@ -111,23 +111,25 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btnRemove"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginBottom="3dp"
-                    android:background="@drawable/bgbtnremove"
-                    android:text="REMOVE"
-                    android:textColor="@android:color/white"
-                    android:textSize="13sp" />
-
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                     android:id="@+id/myButton"
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:gravity="center"
+                    android:layout_marginBottom="3dp"
                     app:initialNumber="1" />
+
+                <Button
+                    android:id="@+id/btnRemove"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/bgbtnremove"
+                    android:text="REMOVE"
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp" />
+
+
 
             </LinearLayout>
 
