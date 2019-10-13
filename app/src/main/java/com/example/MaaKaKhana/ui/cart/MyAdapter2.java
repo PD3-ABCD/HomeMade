@@ -50,13 +50,19 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
             @Override
             public void onClick(View view) {
                 String id2=holder.txtid.getText().toString().trim();
-
+                ListData2 ld3=listData2.get(position);
                 final DatabaseReference databaseReference;
                 databaseReference= FirebaseDatabase.getInstance().getReference("Registration");
                 databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id2).removeValue();
-                //int curposition=listData2.indexOf(ld);
-                listData2.remove(ld2);
+                //int curposition=listData2.indexOf(ld2);
+                listData2.remove(ld3);
+                notifyDataSetChanged();
                 notifyItemRemoved(position);
+
+
+
+
+
 
                 new ViewHolder(view);
                 Toast.makeText(view.getContext(), "Item Deleted! Come Back to check" , Toast.LENGTH_SHORT).show();
