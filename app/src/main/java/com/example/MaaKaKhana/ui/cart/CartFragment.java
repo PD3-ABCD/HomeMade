@@ -36,7 +36,7 @@ public class CartFragment extends Fragment {
     private MyAdapter2 adapter2;
     private ListData2 l;
     private LinearLayout ll;
-    private Button b1;
+    private Button b1,b2;
     //private IncrementDecrement icdc;
     private int total=0;
     private int count;
@@ -52,8 +52,9 @@ public class CartFragment extends Fragment {
         rv2.setHasFixedSize(true);
         rv2.setLayoutManager(new LinearLayoutManager(getActivity()));
         listData2 = new ArrayList<>();
-        ll = (LinearLayout)view.findViewById(R.id.linearLayout2);
+        ll = (LinearLayout)view.findViewById(R.id.total);
         b1=(Button)view.findViewById(R.id.btnPay);
+       // b2=view.findViewById(R.id.btnCalculate);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,13 +65,14 @@ public class CartFragment extends Fragment {
         });
 
 
+
         //Filling Cart
         final DatabaseReference nm = FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart");
         nm.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    ll.setVisibility(view.VISIBLE);
+                  ll.setVisibility(view.VISIBLE);
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
                         l = npsnapshot.getValue(ListData2.class);
                         l.setId(npsnapshot.getKey());

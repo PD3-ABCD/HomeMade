@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="?attr/actionBarSize"
@@ -42,7 +43,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/bgitems"
         android:orientation="vertical"
         android:paddingTop="5dp"
@@ -50,12 +51,15 @@
         android:visibility="visible">
 
 
+
         <LinearLayout
+            android:id="@+id/total"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <LinearLayout
                 android:layout_width="180dp"
