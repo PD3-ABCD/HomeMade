@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.MaaKaKhana.MeraUPI;
 import com.example.MaaKaKhana.R;
-import com.example.MaaKaKhana.ui.login_home.FoodItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,10 +31,10 @@ import java.util.List;
 public class CartFragment extends Fragment {
 
    // private CartViewModel cartViewModel;
-    private List<FoodItem> listData2;
+    private List<ListData2> listData2;
     private RecyclerView rv2;
     private MyAdapter2 adapter2;
-    private FoodItem l;
+    private ListData2 l;
     private LinearLayout ll;
     private Button b1,b2;
     //private IncrementDecrement icdc;
@@ -52,7 +51,7 @@ public class CartFragment extends Fragment {
         rv2 = (RecyclerView) view.findViewById(R.id.rev2);
         rv2.setHasFixedSize(true);
         rv2.setLayoutManager(new LinearLayoutManager(getActivity()));
-        listData2 = new ArrayList<>();
+        listData2 = new ArrayList<ListData2>();
         ll = (LinearLayout)view.findViewById(R.id.linearLayout2);
         b1=(Button)view.findViewById(R.id.btnPay);
        // b2=view.findViewById(R.id.btnCalculate);
@@ -77,7 +76,7 @@ public class CartFragment extends Fragment {
                 if (dataSnapshot.exists()) {
                   ll.setVisibility(view.VISIBLE);
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
-                        l = npsnapshot.getValue(FoodItem.class);
+                        l = npsnapshot.getValue(ListData2.class);
                         l.setId(npsnapshot.getKey());
                         listData2.add(l);
                         total=total+(l.getFood_price().intValue()*l.getFood_quantity().intValue());

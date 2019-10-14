@@ -33,12 +33,12 @@ import java.util.List;
 public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.ViewHolder> {
 
     private static final String TAG = "MyAdapter2";
-    private List<FoodItem>listData2;
-    private FoodItem ld2;
+    private List<ListData2>listData2;
+    private ListData2 ld2;
     ElegantNumberButton elegantNumberButton;
 
 
-    public MyAdapter2(List<FoodItem> listData2) {
+    public MyAdapter2(List<ListData2> listData2) {
         this.listData2 = listData2;
     }
 
@@ -54,7 +54,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.ViewHolder> {
 
 @Override
 public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-    final String id2 = holder.txtid.getText().toString().trim();
+
     ld2 = listData2.get(position);
     holder.txtid.setText(ld2.getId());
     holder.txtname.setText(ld2.getFood_name());
@@ -69,15 +69,20 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
     holder.b2.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            FoodItem ld3 = listData2.get(position);
+            ListData2 ld3 = listData2.get(position);
             //final DatabaseReference databaseReference;
             final DatabaseReference databaseReference;
+            final String id2 = holder.txtid.getText().toString().trim();
             databaseReference = FirebaseDatabase.getInstance().getReference("Registration");
             databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyCart").child(id2).removeValue();
             //int curposition=listData2.indexOf(ld2);
             listData2.remove(ld3);
             notifyDataSetChanged();
             notifyItemRemoved(position);
+            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+            Fragment myFragment = new CartFragment();
+            //activity.getSupportFragmentManager().beginTransaction().remove(myFragment);
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, myFragment).addToBackStack(null).commit();
             new ViewHolder(view);
             Toast.makeText(view.getContext(), "Item Deleted!", Toast.LENGTH_SHORT).show();
         }
@@ -88,7 +93,7 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
         @Override
         public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
             //write logic here
-            FoodItem item = listData2.get(position);
+            ListData2 item = listData2.get(position);
             final String id3 = holder.txtid.getText().toString().trim();
             //HashMap<String, Object> result = new HashMap<>();
             //result.put("food_quantity", newValue);
