@@ -37,6 +37,8 @@ public class Home_Bottom extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
         NavigationUI.setupWithNavController(navView, navController);
 
+
+
     }
 
     @Override
@@ -56,4 +58,5 @@ public class Home_Bottom extends AppCompatActivity {
         }
 
     }
+
 }

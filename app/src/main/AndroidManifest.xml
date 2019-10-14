@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MeraUPI"></activity>
+        <activity android:name=".Order_details"></activity>
+        <activity android:name=".MeraUPI" />
         <activity
             android:name=".Home_Bottom"
             android:label="@string/title_activity_home__bottom" />

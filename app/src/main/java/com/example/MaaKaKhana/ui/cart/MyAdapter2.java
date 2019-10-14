@@ -61,6 +61,7 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
     // holder.txtdesc.setText(ld2.getFood_desc());
     holder.txtprice.setText("₹ " + String.valueOf(ld2.getFood_price()));
     holder.elegantNumberButton.setNumber(ld2.getFood_quantity().toString());
+
     holder.elegantNumberButton.setRange(1,10);
 
 
@@ -81,22 +82,6 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
             Toast.makeText(view.getContext(), "Item Deleted!", Toast.LENGTH_SHORT).show();
         }
     });
-        holder.b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FoodItem ld3=listData2.get(position);
-                //final DatabaseReference databaseReference;
-                final DatabaseReference databaseReference;
-                databaseReference= FirebaseDatabase.getInstance().getReference("Registration");
-                databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyCart").child(ld3.getId()).removeValue();
-                //int curposition=listData2.indexOf(ld2);
-                listData2.remove(ld3);
-                notifyDataSetChanged();
-                notifyItemRemoved(position);
-                new ViewHolder(view);
-                Toast.makeText(view.getContext(), "Item Deleted!" , Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
     holder.elegantNumberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {

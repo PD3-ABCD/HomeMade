@@ -2,6 +2,8 @@ package com.example.MaaKaKhana;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -10,24 +12,36 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.MaaKaKhana.ui.OrderHistory.OrderHistoryFragment;
 import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MeraUPI extends AppCompatActivity {
 
-    EditText amountEt, noteEt, nameEt, upiIdEt;
+    EditText noteEt, nameEt, upiIdEt;
+    TextView amount;
     Button send;
     DatabaseReference fromPath,toPath;
+    String message;
 
     final int UPI_PAYMENT = 0;
 
@@ -36,29 +50,30 @@ public class MeraUPI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mera_upi);
-
-        initializeViews();
+        Intent intent = getIntent();
+        String i=(intent.getStringExtra("message"));
+        send = findViewById(R.id.send);
+        amount = (TextView)findViewById(R.id.amount_et);
+        noteEt = findViewById(R.id.note);
+        nameEt = findViewById(R.id.name);
+        upiIdEt = findViewById(R.id.upi_id);
+        //Log.d("Helllooooo", message);
+        amount.setText("Rs. "+i);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Getting the values from the EditTexts
-                String amount = amountEt.getText().toString();
+
+                String amount1=amount.getText().toString();
                 String note = noteEt.getText().toString();
                 String name = nameEt.getText().toString();
                 String upiId = upiIdEt.getText().toString();
-                payUsingUpi(amount, upiId, name, note);
+                payUsingUpi(amount1, upiId, name, note);
             }
         });
     }
 
-    void initializeViews() {
-        send = findViewById(R.id.send);
-        amountEt = findViewById(R.id.amount_et);
-        noteEt = findViewById(R.id.note);
-        nameEt = findViewById(R.id.name);
-        upiIdEt = findViewById(R.id.upi_id);
-    }
 
     void payUsingUpi(String amount, String upiId, String name, String note) {
 
@@ -141,15 +156,34 @@ public class MeraUPI extends AppCompatActivity {
 
             if (status.equals("success")) {
                 //Code to handle successful transaction here.
+                final String saveCurrentDate, saveCurrentTime;
+                Calendar calendar=Calendar.getInstance();
+                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("MMM dd, yyyy");
+                saveCurrentDate=simpleDateFormat.format(calendar.getTime());
+
+
+                SimpleDateFormat simpleDateFormat1=new SimpleDateFormat("HH:mm:ss a");
+                saveCurrentTime=simpleDateFormat1.format(calendar.getTime());
+
 
                 fromPath= FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyCart");
-                toPath= FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyOrders");
-                Toast.makeText(MeraUPI.this, "Transaction successful.", Toast.LENGTH_SHORT).show();
+                toPath= FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyOrders").child(saveCurrentDate+" "+saveCurrentTime);
+
+
+
                 moveGameRoom(fromPath,toPath);
-                Log.d("UPI", "responseStr: "+approvalRefNo);
+                Toast.makeText(MeraUPI.this, "Transaction successful.", Toast.LENGTH_SHORT).show();
+
+
+               // Log.d("UPI", "responseStr: "+approvalRefNo);
             }
             else if("Payment cancelled by user.".equals(paymentCancel)) {
+
+
+
                 Toast.makeText(MeraUPI.this, "Payment cancelled by user.", Toast.LENGTH_SHORT).show();
+
+
             }
             else {
                 Toast.makeText(MeraUPI.this, "Transaction failed.Please try again", Toast.LENGTH_SHORT).show();
@@ -176,6 +210,7 @@ public class MeraUPI extends AppCompatActivity {
         fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
@@ -183,6 +218,7 @@ public class MeraUPI extends AppCompatActivity {
                             System.out.println("Copy failed");
                         } else {
                             System.out.println("Success");
+                            fromPath.setValue(null);
 
                         }
                     }

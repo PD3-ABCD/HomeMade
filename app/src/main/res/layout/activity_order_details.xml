@@ -21,9 +21,23 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_centerHorizontal="true"
-        android:text="My Orders"
+        android:text="Order Details"
         android:textColor="#FFF"
         android:textSize="22sp"
+        />
+
+    <TextView
+        android:id="@+id/MeraSubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_below="@id/MeraTitle"
+        android:layout_centerHorizontal="true"
+        android:text="test"
+        android:textColor="#FFF"
+        android:textSize="17dp"
         />
 
 
@@ -31,12 +45,9 @@
         android:id="@+id/rev2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_below="@+id/MeraTitle"
+        android:layout_below="@+id/MeraSubTitle"
 
         android:layout_alignParentBottom="false" />
-
-
 
 
 </RelativeLayout>

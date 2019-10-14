@@ -39,7 +39,7 @@ public class CartFragment extends Fragment {
     private LinearLayout ll;
     private Button b1,b2;
     //private IncrementDecrement icdc;
-    private Double total=0d;
+    private int total=0;
     private int count;
     private TextView t_price;
 
@@ -60,7 +60,9 @@ public class CartFragment extends Fragment {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(getActivity(), MeraUPI.class);
+                intent.putExtra("message", String.valueOf(total));
                 startActivity(intent);
             }
         });
@@ -78,9 +80,9 @@ public class CartFragment extends Fragment {
                         l = npsnapshot.getValue(FoodItem.class);
                         l.setId(npsnapshot.getKey());
                         listData2.add(l);
-                        total=total+(l.getFood_price()*l.getFood_quantity());
+                        total=total+(l.getFood_price().intValue()*l.getFood_quantity().intValue());
                         t_price=(TextView)view.findViewById(R.id.priceTitle);
-                        String t1=Double.toString(total);
+                        String t1=Integer.toString(total);
                         //Log.d("IGV",t1);
                         t_price.setText("Rs. "+t1);
 
