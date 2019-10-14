@@ -13,6 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.google.firebase.FirebaseError;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -20,8 +27,10 @@ public class MeraUPI extends AppCompatActivity {
 
     EditText amountEt, noteEt, nameEt, upiIdEt;
     Button send;
+    DatabaseReference fromPath,toPath;
 
     final int UPI_PAYMENT = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +141,11 @@ public class MeraUPI extends AppCompatActivity {
 
             if (status.equals("success")) {
                 //Code to handle successful transaction here.
+
+                fromPath= FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyCart");
+                toPath= FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyOrders");
                 Toast.makeText(MeraUPI.this, "Transaction successful.", Toast.LENGTH_SHORT).show();
+                moveGameRoom(fromPath,toPath);
                 Log.d("UPI", "responseStr: "+approvalRefNo);
             }
             else if("Payment cancelled by user.".equals(paymentCancel)) {
@@ -158,4 +171,32 @@ public class MeraUPI extends AppCompatActivity {
         }
         return false;
     }
+
+    private void moveGameRoom(final DatabaseReference fromPath, final DatabaseReference toPath) {
+        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
+                        if (firebaseError != null) {
+                            System.out.println("Copy failed");
+                        } else {
+                            System.out.println("Success");
+
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
 }
