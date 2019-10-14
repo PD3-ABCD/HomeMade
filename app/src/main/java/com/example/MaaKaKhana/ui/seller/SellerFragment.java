@@ -52,7 +52,7 @@ public class SellerFragment extends Fragment {
         //showbtn=(Button)view.findViewById(R.id.showlist);
         food_detail = new datainsert();
         dbref = FirebaseDatabase.getInstance().getReference().child("FoodItems");
-        dbref1 = FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Food Items");
+        dbref1 = FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyFoodItems");
 
 
         savebtn.setOnClickListener(new View.OnClickListener() {

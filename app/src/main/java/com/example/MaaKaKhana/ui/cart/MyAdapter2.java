@@ -1,22 +1,16 @@
 package com.example.MaaKaKhana.ui.cart;
 
 
-import android.app.Activity;
-import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
@@ -51,7 +45,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.ViewHolder> {
 
 @Override
 public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-    final String id2 = holder.txtid.getText().toString().trim();
+
     ld2 = listData2.get(position);
     holder.txtid.setText(ld2.getId());
     holder.txtname.setText(ld2.getFood_name());
@@ -65,17 +59,24 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
     holder.b2.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            final String id2 = holder.txtid.getText().toString().trim();
             ListData2 ld3 = listData2.get(position);
             //final DatabaseReference databaseReference;
             final DatabaseReference databaseReference;
             databaseReference = FirebaseDatabase.getInstance().getReference("Registration");
-            databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id2).removeValue();
-            //int curposition=listData2.indexOf(ld2);
+            databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyCart").child(id2).removeValue();
+            int curposition=listData2.indexOf(ld3);
             listData2.remove(ld3);
             notifyDataSetChanged();
-            notifyItemRemoved(position);
+            notifyItemRemoved(curposition);
             new ViewHolder(view);
             Toast.makeText(view.getContext(), "Item Deleted!", Toast.LENGTH_SHORT).show();
+            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+            Fragment myFragment = new CartFragment();
+
+            //activity.getSupportFragmentManager().beginTransaction().remove(myFragment);
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, myFragment).addToBackStack(null).commit();
+
         }
     });
 
@@ -92,14 +93,12 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
 
             holder.txtprice.setText("₹ " + Long.toString(item.getFood_price() * newValue));
             final DatabaseReference databaseReference1;
-            databaseReference1 = FirebaseDatabase.getInstance().getReference("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id3);
+            databaseReference1 = FirebaseDatabase.getInstance().getReference("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyCart").child(id3);
             databaseReference1.child("food_quantity").setValue(newValue);
             notifyDataSetChanged();
             notifyItemChanged(position);
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             Fragment myFragment = new CartFragment();
-
-
 
             //activity.getSupportFragmentManager().beginTransaction().remove(myFragment);
             activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment, myFragment).addToBackStack(null).commit();
@@ -136,8 +135,6 @@ public class ViewHolder extends RecyclerView.ViewHolder{
     }
 
 }
-
-
 
 }
 

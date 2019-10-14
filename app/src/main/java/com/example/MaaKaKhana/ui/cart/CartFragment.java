@@ -52,7 +52,7 @@ public class CartFragment extends Fragment {
         rv2.setHasFixedSize(true);
         rv2.setLayoutManager(new LinearLayoutManager(getActivity()));
         listData2 = new ArrayList<>();
-        ll = (LinearLayout)view.findViewById(R.id.total);
+        ll = (LinearLayout)view.findViewById(R.id.linearLayout2);
         b1=(Button)view.findViewById(R.id.btnPay);
        // b2=view.findViewById(R.id.btnCalculate);
 
@@ -67,7 +67,7 @@ public class CartFragment extends Fragment {
 
 
         //Filling Cart
-        final DatabaseReference nm = FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart");
+        final DatabaseReference nm = FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyCart");
         nm.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

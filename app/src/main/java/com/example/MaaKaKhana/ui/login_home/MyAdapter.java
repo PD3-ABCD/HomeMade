@@ -66,7 +66,7 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
                 cart_data.setFood_price(price);
                 cart_data.setFood_quantity(1);
                 databaseReference= FirebaseDatabase.getInstance().getReference("Registration");
-                databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id3).setValue(cart_data);
+                databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyCart").child(id3).setValue(cart_data);
 
                 Toast.makeText(view.getContext(), "Item Added to Cart", Toast.LENGTH_SHORT).show();
 

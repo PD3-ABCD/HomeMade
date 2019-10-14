@@ -65,9 +65,9 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
                     ListData1 ld4=listData1.get(position);
                     final DatabaseReference databaseReference, databaseReference1, databaseReference2;
                     databaseReference= FirebaseDatabase.getInstance().getReference("Registration");
-                    databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Food Items").child(id2).removeValue();
+                    databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyFoodItems").child(id2).removeValue();
                     databaseReference1=FirebaseDatabase.getInstance().getReference("FoodItems");
-                    databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("My Cart").child(id2).removeValue();
+                    databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MyCart").child(id2).removeValue();
                     databaseReference1.child(id2).removeValue();
                     listData1.remove(ld4);
                     notifyDataSetChanged();
