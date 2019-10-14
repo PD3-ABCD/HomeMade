@@ -136,20 +136,22 @@ public class HomeFragment extends Fragment {
     }
 
     public void address_view(){
-       /*DatabaseReference dbl = FirebaseDatabase.getInstance().getReference("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Location");
+      DatabaseReference dbl = FirebaseDatabase.getInstance().getReference("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Location");
         dbl.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Loc loc=dataSnapshot.getValue(Loc.class);
-                String a = "Location:"+loc.getAdd();
-                tv.setText(a);
+                MyLocation loc=dataSnapshot.getValue(MyLocation.class);
+                if(loc!=null) {
+                    String a = "Location:" + loc.getAddress();
+                    tv.setText(a);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });*/
+        });
     }
 
 }
