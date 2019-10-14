@@ -74,7 +74,7 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, final int positio
                     notifyItemRemoved(position);
                 new ViewHolder(view);
 
-                Toast.makeText(view.getContext(), "Item Deleted! Come Back to check" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Item Deleted!" , Toast.LENGTH_SHORT).show();
             }
 
         });

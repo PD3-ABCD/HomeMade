@@ -4,6 +4,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class Loc {
     private LatLng latLng;
+    private String add;
+
     public Loc() {
     }
 
@@ -22,4 +24,13 @@ public class Loc {
     public double getLong() {
         return latLng.longitude;
     }
+
+    public String getAdd() {
+        return add;
+    }
+
+    public void setAdd(String add) {
+        this.add = add;
+    }
+
 }

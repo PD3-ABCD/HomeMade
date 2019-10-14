@@ -2,7 +2,6 @@ package com.example.MaaKaKhana.ui.login_home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.MaaKaKhana.CommonUtil;
 import com.example.MaaKaKhana.MapsActivity;
 import com.example.MaaKaKhana.R;
+import com.example.MaaKaKhana.Loc;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
@@ -40,18 +43,17 @@ public class HomeFragment extends Fragment {
 //    ArrayAdapter<String> adapter;
 //    datainsert di;
 
-    private List<ListData>listData;
+    private List<FoodItem>listData;
     private RecyclerView rv;
     private MyAdapter adapter;
+    User currentUser;
 
     public HomeFragment(){
 
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-
-
+        currentUser = CommonUtil.getCurrentUser();
         //Flipper part
         View view= inflater.inflate(R.layout.fragment_loginhome,container,false);
         v_fliper = view.findViewById(R.id.v_fliper);
@@ -82,15 +84,20 @@ public class HomeFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         listData=new ArrayList<>();
 
-        final DatabaseReference nm= FirebaseDatabase.getInstance().getReference("FoodItems");
+        final DatabaseReference nm= FirebaseDatabase.getInstance().getReference("Registration");
         nm.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()){
-                        ListData l=npsnapshot.getValue(ListData.class);
-                        l.setId(npsnapshot.getKey());
-                        listData.add(l);
+                        User l=npsnapshot.getValue(User.class);
+                        List<FoodItem> items = null;
+                        if (isInBound(l)){
+                            items = l.getMyFoodItemsAsList();
+                        }
+                        System.out.println(l.getFirstName());
+                        if (items!=null)
+                            listData.addAll(items);
                     }
                     adapter=new MyAdapter(listData);
                     rv.setAdapter(adapter);
@@ -104,6 +111,13 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private boolean isInBound(User l) {
+        currentUser = CommonUtil.getCurrentUser();
+        if (currentUser!=null && currentUser.getLocation()!=null && l!=null && l.getLocation()!=null)
+         return currentUser.getLocation().distance(l.getLocation()) <= 2;
+        return false;
     }
 
     public void fliperImages(int image){
@@ -122,11 +136,12 @@ public class HomeFragment extends Fragment {
     }
 
     public void address_view(){
-        DatabaseReference l = FirebaseDatabase.getInstance().getReference().child("Loc").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("address");
-        l.addValueEventListener(new ValueEventListener() {
+       /*DatabaseReference dbl = FirebaseDatabase.getInstance().getReference("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Location");
+        dbl.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String a="Location: "+dataSnapshot.getValue(String.class);
+                Loc loc=dataSnapshot.getValue(Loc.class);
+                String a = "Location:"+loc.getAdd();
                 tv.setText(a);
             }
 
@@ -134,7 +149,7 @@ public class HomeFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
     }
 
 }

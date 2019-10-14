@@ -22,14 +22,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private ListData cart_data;
+    private FoodItem cart_data;
     private DatabaseReference databaseReference;
 
-    private ListData ld;
+    private FoodItem ld;
     int max;
-    private List<ListData>listData;
+    private List<FoodItem>listData;
 
-    public MyAdapter(List<ListData>listData) {
+    public MyAdapter(List<FoodItem>listData) {
         this.listData = listData;
     }
 
@@ -50,7 +50,7 @@ public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.txtdesc.setText(ld.getFood_desc());
         holder.txtprice.setText(ld.getFood_price().toString());
 
-        cart_data=new ListData();
+        cart_data=new FoodItem();
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

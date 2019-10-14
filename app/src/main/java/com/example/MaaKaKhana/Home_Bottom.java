@@ -23,6 +23,7 @@ public class Home_Bottom extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CommonUtil.getCurrentUser();
         setContentView(R.layout.activity_home__bottom);
         drawerLayout=findViewById(R.id.drawer);
         navigationView=findViewById(R.id.navigationView);

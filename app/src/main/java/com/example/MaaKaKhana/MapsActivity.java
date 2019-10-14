@@ -124,6 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
+
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this);
 
         mLocationCallback = new LocationCallback(){
@@ -142,11 +143,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void save(View v){
-        //loc = new Loc();
-        //loc.setLatLng(latLng);
-        //DatabaseReference user_ref=FirebaseDatabase.getInstance().getReference().child("Loc");
-        reff = FirebaseDatabase.getInstance().getReference().child("Loc").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        reff = FirebaseDatabase.getInstance().getReference().child("Registration").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Location");
+
         reff.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null){

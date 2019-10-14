@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.MaaKaKhana.MeraUPI;
 import com.example.MaaKaKhana.R;
+import com.example.MaaKaKhana.ui.login_home.FoodItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,14 +32,14 @@ import java.util.List;
 public class CartFragment extends Fragment {
 
    // private CartViewModel cartViewModel;
-    private List<ListData2> listData2;
+    private List<FoodItem> listData2;
     private RecyclerView rv2;
     private MyAdapter2 adapter2;
-    private ListData2 l;
+    private FoodItem l;
     private LinearLayout ll;
     private Button b1,b2;
     //private IncrementDecrement icdc;
-    private int total=0;
+    private Double total=0d;
     private int count;
     private TextView t_price;
 
@@ -74,12 +75,12 @@ public class CartFragment extends Fragment {
                 if (dataSnapshot.exists()) {
                   ll.setVisibility(view.VISIBLE);
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
-                        l = npsnapshot.getValue(ListData2.class);
+                        l = npsnapshot.getValue(FoodItem.class);
                         l.setId(npsnapshot.getKey());
                         listData2.add(l);
-                        total=total+(l.getFood_price().intValue()*l.getFood_quantity());
+                        total=total+(l.getFood_price()*l.getFood_quantity());
                         t_price=(TextView)view.findViewById(R.id.priceTitle);
-                        String t1=Integer.toString(total);
+                        String t1=Double.toString(total);
                         //Log.d("IGV",t1);
                         t_price.setText("Rs. "+t1);
 
@@ -96,10 +97,6 @@ public class CartFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
-
-
-
 
         return view;
     }
