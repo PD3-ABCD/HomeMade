@@ -58,7 +58,7 @@ public class MeraUPI extends AppCompatActivity {
         nameEt = findViewById(R.id.name);
         upiIdEt = findViewById(R.id.upi_id);
         //Log.d("Helllooooo", message);
-        amount.setText("Rs. "+i);
+        amount.setText(i);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override

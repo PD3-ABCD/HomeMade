@@ -13,7 +13,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:textSize="20dp"
-        android:text="Amount: "
+        android:text="Amount: Rs. "
         android:textColor="#000000"/>
 
 
